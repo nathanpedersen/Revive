@@ -13,7 +13,7 @@ Creates a less punishing hardcore game mode aimed at multiplayer servers.
 /book - gives you a book containing information about the plugin.
 
 # Death Mechanics
-Currently I have it set up that the material used to resurrect the player is diamonds. (Might add a config file later to change this easier but can be changed now 
+Currently I have it set up that the material used to resurrect the player is diamonds. (Might add a config file later to change this more easily but can be changed now 
 if you know what you're doing)
 
 **<ins>First Death:</ins>**
