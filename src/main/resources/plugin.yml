@@ -1,0 +1,16 @@
+name: Revive
+version: 1.0.1
+main: me.perjergersen.revive.Revive
+api-version: 1.16
+authors: [Perjergersen]
+description: Less punishing hardcore game mode aimed at multiplayer servers.
+website: https://github.com/Perjergersen
+commands:
+  resurrect:
+    description:
+  ifidie:
+    description:
+  listres:
+    description:
+  book:
+    description:
