@@ -47,7 +47,7 @@ h = hours played on the server rounded down
 
 This uses MongoDB. You will need to make a file in Utilites called Mongo.java and initialize your MongoClient.
 
-Exmaple:
+Example:
 
 ```java
 package me.perjergersen.revive.Utilities;
