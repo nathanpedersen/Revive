@@ -32,7 +32,7 @@ Consuming resets your health back to normal (consume 1 to restore all hearts).
 **<ins>Second Death:</ins>**
 
 In-game statistics will also count this as a death. You will be put into spectator mode. Your resurrection cost will be calculated at this time. 
-In order to play again someone will need to resurrect you. Keep in mind this all will happen whether you restored your hearts or not.
+In order to play again someone will need to resurrect you. Keep in mind this will all happen whether you restored your hearts or not.
 
 This cycle will repeat.
 
