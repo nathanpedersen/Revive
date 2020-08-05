@@ -2,10 +2,10 @@ package me.perjergersen.revive;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import me.perjergersen.revive.commands.Ifidie;
-import me.perjergersen.revive.commands.Resurrect;
-import me.perjergersen.revive.commands.Book;
-import me.perjergersen.revive.commands.Listres;
+import me.perjergersen.revive.Commands.Ifidie;
+import me.perjergersen.revive.Commands.Resurrect;
+import me.perjergersen.revive.Commands.Book;
+import me.perjergersen.revive.Commands.Listres;
 import org.bson.Document;
 import org.bukkit.*;
 import org.bukkit.entity.Player;

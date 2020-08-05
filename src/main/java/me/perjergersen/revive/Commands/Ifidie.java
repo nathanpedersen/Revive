@@ -1,6 +1,5 @@
-package me.perjergersen.revive.commands;
+package me.perjergersen.revive.Commands;
 
-import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

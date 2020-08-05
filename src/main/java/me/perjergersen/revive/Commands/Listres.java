@@ -1,4 +1,4 @@
-package me.perjergersen.revive.commands;
+package me.perjergersen.revive.Commands;
 
 import com.mongodb.Block;
 import com.mongodb.client.MongoCollection;
