@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 import static me.perjergersen.revive.Utilities.Mongo.mongoClient;
 
-public class listres implements CommandExecutor {
+public class Listres implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {

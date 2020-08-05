@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import static me.perjergersen.revive.Utilities.HelperFunctions.TeleportPlayer;
+import static me.perjergersen.revive.Utilities.HelperFunctions.teleportPlayerToTheirSpawnPoint;
 import static me.perjergersen.revive.Utilities.Mongo.mongoClient;
 
 public class Resurrect implements CommandExecutor {
@@ -52,7 +52,7 @@ public class Resurrect implements CommandExecutor {
 
                                     // resurrect target
                                     target.setGameMode(GameMode.SURVIVAL);
-                                    TeleportPlayer(target);
+                                    teleportPlayerToTheirSpawnPoint(target);
                                     Bukkit.getServer().broadcastMessage(target.getName() + " has been resurrected!");
 
                                     // remove target entry from db

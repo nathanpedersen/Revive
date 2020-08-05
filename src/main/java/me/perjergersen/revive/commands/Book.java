@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import static me.perjergersen.revive.Utilities.HelperFunctions.giveBook;
 
-public class book implements CommandExecutor {
+public class Book implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player) {

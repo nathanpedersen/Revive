@@ -4,8 +4,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import me.perjergersen.revive.commands.Ifidie;
 import me.perjergersen.revive.commands.Resurrect;
-import me.perjergersen.revive.commands.book;
-import me.perjergersen.revive.commands.listres;
+import me.perjergersen.revive.commands.Book;
+import me.perjergersen.revive.commands.Listres;
 import org.bson.Document;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -27,8 +27,8 @@ public final class Revive extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
         getCommand("resurrect").setExecutor(new Resurrect());
         getCommand("ifidie").setExecutor(new Ifidie());
-        getCommand("listres").setExecutor(new listres());
-        getCommand("Book").setExecutor(new book());
+        getCommand("listres").setExecutor(new Listres());
+        getCommand("Book").setExecutor(new Book());
     }
 
     @Override
@@ -43,7 +43,7 @@ public final class Revive extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void join(PlayerJoinEvent e) {
+    public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         player.sendMessage(ChatColor.LIGHT_PURPLE + "Use /book to get server game mode information.");
         player.sendMessage(ChatColor.AQUA + "Message Nathan-#2574 if you are dead. I messed up a bit updating the plugin :( Should be fixed.");
@@ -54,7 +54,7 @@ public final class Revive extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void eatGoldenApple(PlayerItemConsumeEvent e) {
+    public void onEatGoldenApple(PlayerItemConsumeEvent e) {
         Player player = e.getPlayer();
         if (player.getMaxHealth() < 20) {
             if (e.getItem().isSimilar(new ItemStack(Material.GOLDEN_APPLE))) {
@@ -69,7 +69,7 @@ public final class Revive extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void setSpawn(PlayerBedEnterEvent e) {
+    public void onBedSleepInteraction(PlayerBedEnterEvent e) {
         e.getPlayer().setBedSpawnLocation(e.getBed().getLocation());
     }
 
@@ -78,20 +78,20 @@ public final class Revive extends JavaPlugin implements Listener {
     // Putting it here allows me to utilize the the normal respawn mechanic in the game so I don't have to manually
     // teleport the player
     @EventHandler
-    public void PlayerGameModeChange(PlayerGameModeChangeEvent e) {
+    public void onPlayerGameModeChange(PlayerGameModeChangeEvent e) {
         MongoDatabase database = mongoClient.getDatabase("Minecraft_Revive");
         MongoCollection collection = database.getCollection("Revive_Data");
 
-        Document document = new Document();
+        Document databaseEntry = new Document();
 
         Player player = e.getPlayer();
         int diamonds = calcDiamondCost(player);
         if (e.getNewGameMode() == GameMode.SPECTATOR) {
             if (player.getStatistic(Statistic.DEATHS) % 2 == 0) {
                 player.resetMaxHealth();
-                document.append("name", player.getName());
-                document.append("cost", diamonds);
-                collection.insertOne(document);
+                databaseEntry.append("name", player.getName());
+                databaseEntry.append("cost", diamonds);
+                collection.insertOne(databaseEntry);
                 player.setHealth(20);
                 Bukkit.getServer().broadcastMessage(player.getName() + " has died! (Resurrection cost: " + diamonds + " diamonds).");
             } else {
