@@ -1,5 +1,7 @@
 package me.perjergersen.revive;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import me.perjergersen.revive.Commands.Ifidie;
@@ -15,6 +17,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.LoggerFactory;
 
 import static me.perjergersen.revive.Utilities.HelperFunctions.*;
 import static me.perjergersen.revive.Utilities.Mongo.mongoClient;
@@ -23,17 +26,18 @@ public final class Revive extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        /* Plugin startup logic */
         getServer().getPluginManager().registerEvents(this, this);
         getCommand("resurrect").setExecutor(new Resurrect());
         getCommand("ifidie").setExecutor(new Ifidie());
         getCommand("listres").setExecutor(new Listres());
         getCommand("Book").setExecutor(new Book());
+        ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        /* Plugin shutdown logic */
         mongoClient.close();
     }
 
@@ -73,10 +77,10 @@ public final class Revive extends JavaPlugin implements Listener {
         e.getPlayer().setBedSpawnLocation(e.getBed().getLocation());
     }
 
-    // DEATH MECHANIC HANDLER
-    // I originally had this in a PlayerDeathEvent handler but had some problems with teleporting the player out of other dimensions.
-    // Putting it here allows me to utilize the the normal respawn mechanic in the game so I don't have to manually
-    // teleport the player
+    /* DEATH MECHANIC HANDLER
+       I originally had this in a PlayerDeathEvent handler but had some problems with teleporting the player out of other dimensions.
+       Putting it here allows me to utilize the the normal respawn mechanic in the game so I don't have to manually
+       teleport the player */
     @EventHandler
     public void onPlayerGameModeChange(PlayerGameModeChangeEvent e) {
         MongoDatabase database = mongoClient.getDatabase("Minecraft_Revive");

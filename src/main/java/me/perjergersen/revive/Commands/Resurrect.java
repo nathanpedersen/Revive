@@ -19,43 +19,43 @@ public class Resurrect implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        // checking if the person sending the command is a player. (could be the console)
+        /* checking if the person sending the command is a player. (could be the console) */
         if (sender instanceof Player) {
-            // player is the person sending the command
+            /* player is the person sending the command */
             Player player = (Player) sender;
-            // checking if command was typed out correctly. Usage: /resurrect <dead player>
+            /* checking if command was typed out correctly. Usage: /resurrect <dead player> */
             if (args.length == 1) {
-                // making sure player is alive in order to resurrect someone else.
+                /* making sure player is alive in order to resurrect someone else. */
                 if (player.getGameMode() == GameMode.SURVIVAL) {
                     Player target = Bukkit.getPlayerExact(args[0]);
-                    // redundant check? making sure target is a player ie. not the console. Target is already a player. Makes me feel more comfortable :)
+                    /* redundant check? making sure target is a player ie. not the console. Target is already a player. Makes me feel more comfortable :) */
                     if (target instanceof Player) {
-                        // checking if target is dead
+                        /* checking if target is dead */
                         if (target.getGameMode() == GameMode.SPECTATOR) {
-                            // connect to mangodb
+                            /* connect to mangodb */
                             MongoDatabase database = mongoClient.getDatabase("Minecraft_Revive");
                             MongoCollection collection = database.getCollection("Revive_Data");
 
-                            // find entry in mangodb with the targets name
+                            /* find entry in mangodb with the targets name */
                             Document found = (Document) collection.find(new Document("name", target.getName())).first();
 
-                            // if found is null then targets name was not in database
+                            /* if found is null then targets name was not in database */
                             if (found != null) {
-                                // retrieve targets resurrection cost from db
+                                /* retrieve targets resurrection cost from db */
                                 int targetCost = (int) found.get("cost");
-                                // check if player has enough diamonds to resurrect player
+                                /* check if player has enough diamonds to resurrect player */
                                 if (player.getInventory().contains(Material.DIAMOND, targetCost)) {
-                                    // remove diamonds from player
+                                    /* remove diamonds from player */
                                     ItemStack iStack = new ItemStack(Material.DIAMOND);
                                     iStack.setAmount(targetCost);
                                     player.getInventory().removeItem(iStack);
 
-                                    // resurrect target
+                                    /* resurrect target */
                                     target.setGameMode(GameMode.SURVIVAL);
                                     teleportPlayerToTheirSpawnPoint(target);
                                     Bukkit.getServer().broadcastMessage(target.getName() + " has been resurrected!");
 
-                                    // remove target entry from db
+                                    /* remove target entry from db */
                                     collection.deleteOne(found);
                                 } else {
                                     player.sendMessage("You need " + targetCost + " diamonds to resurrect " + target.getName() + ".");

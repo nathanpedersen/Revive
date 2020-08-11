@@ -8,9 +8,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class HelperFunctions {
 
-    // Teleports player to their bed or spawn if bed does not exist. Will teleport from other dimensions.
-    // EDIT: This will teleport from the nether to the overworld but for some reason wont teleport from the end to the overworld
-    // keeping here to figure out why some day.
+    /* Teleports player to their bed or spawn if bed does not exist. Will teleport from other dimensions.
+       EDIT: This will teleport from the nether to the overworld but for some reason wont teleport from the end to the overworld
+       keeping here to figure out why some day. */
     public static void teleportPlayerToTheirSpawnPoint(Player player) {
         if (player.getBedSpawnLocation() != null) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:overworld run teleport "
@@ -34,7 +34,8 @@ public class HelperFunctions {
     public static int calcDiamondCost(Player player) {
         return (int) (((3 * getHoursPlayed(player)) + 350) * 0.1);
     }
-    // PLAY_ONE_MINUTE returns ticks played. 20 tics/second
+
+    /* PLAY_ONE_MINUTE returns ticks played. 20 tics/second */
     public static double getHoursPlayed(Player player) {
         return player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 72000.0;
     }
