@@ -28,11 +28,10 @@ public class Resurrect implements CommandExecutor {
                 /* making sure player is alive in order to resurrect someone else. */
                 if (player.getGameMode() == GameMode.SURVIVAL) {
                     Player target = Bukkit.getPlayerExact(args[0]);
-                    /* redundant check? making sure target is a player ie. not the console. Target is already a player. Makes me feel more comfortable :) */
-                    if (target instanceof Player) {
+                    /* make sure target is a valid player */
+                    if (target != null) {
                         /* checking if target is dead */
                         if (target.getGameMode() == GameMode.SPECTATOR) {
-                            /* connect to mangodb */
                             MongoDatabase database = mongoClient.getDatabase("Minecraft_Revive");
                             MongoCollection collection = database.getCollection("Revive_Data");
 

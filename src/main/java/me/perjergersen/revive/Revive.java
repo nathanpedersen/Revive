@@ -90,6 +90,8 @@ public final class Revive extends JavaPlugin implements Listener {
 
         Player player = e.getPlayer();
         int diamonds = calcDiamondCost(player);
+
+        /* player enters spectator mode when they die in hardcore mode */
         if (e.getNewGameMode() == GameMode.SPECTATOR) {
             if (player.getStatistic(Statistic.DEATHS) % 2 == 0) {
                 player.resetMaxHealth();

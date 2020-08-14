@@ -15,11 +15,11 @@ public class Ifidie implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            int diamonds = calcDiamondCost(player);
+            int diamondCost = calcDiamondCost(player);
             double hoursPlayed = getHoursPlayed(player);
             DecimalFormat df = new DecimalFormat("#.##");
-            player.sendMessage("If you die right now you will cost " + Integer.toString(diamonds) + " diamonds to resurrect! (Playtime: " + df.format(hoursPlayed) + " hrs)");
+            player.sendMessage("If you die right now you will cost " + Integer.toString(diamondCost) + " diamonds to resurrect! (Playtime: " + df.format(hoursPlayed) + " hrs)");
         }
-        return false;
+        return true;
     }
 }
