@@ -3,6 +3,11 @@ Multiplayer game mode plugin for Minecraft
 
 Creates a less punishing hardcore game mode aimed at multiplayer servers.
 
+Compatiable Minecraft Versions:
+
+- 1.16.1 :heavy_check_mark:
+- 1.16.2 :heavy_check_mark:
+
 # Commands
 /listres - lists all dead players and their resurrection cost.
 
