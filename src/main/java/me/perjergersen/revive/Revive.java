@@ -50,7 +50,6 @@ public final class Revive extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         player.sendMessage(ChatColor.LIGHT_PURPLE + "Use /book to get server game mode information.");
-        player.sendMessage(ChatColor.AQUA + "Message Nathan-#2574 if you are dead. I messed up a bit updating the plugin :( Should be fixed.");
 
         if (!player.hasPlayedBefore()) {
             giveBook(player);
