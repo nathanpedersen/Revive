@@ -21,17 +21,23 @@ public class Resurrect implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         /* checking if the person sending the command is a player. (could be the console) */
         if (sender instanceof Player) {
+
             /* player is the person sending the command */
             Player player = (Player) sender;
+
             /* checking if command was typed out correctly. Usage: /resurrect <dead player> */
             if (args.length == 1) {
+
                 /* making sure player is alive in order to resurrect someone else. */
                 if (player.getGameMode() == GameMode.SURVIVAL) {
+
                     Player target = Bukkit.getPlayerExact(args[0]);
                     /* make sure target is a valid player */
                     if (target != null) {
+
                         /* checking if target is dead */
                         if (target.getGameMode() == GameMode.SPECTATOR) {
+
                             MongoDatabase database = mongoClient.getDatabase("Minecraft_Revive");
                             MongoCollection collection = database.getCollection("Revive_Data");
 
@@ -40,10 +46,13 @@ public class Resurrect implements CommandExecutor {
 
                             /* if found is null then targets name was not in database */
                             if (found != null) {
+
                                 /* retrieve targets resurrection cost from db */
                                 int targetCost = (int) found.get("cost");
+
                                 /* check if player has enough diamonds to resurrect player */
                                 if (player.getInventory().contains(Material.DIAMOND, targetCost)) {
+
                                     /* remove diamonds from player */
                                     ItemStack iStack = new ItemStack(Material.DIAMOND);
                                     iStack.setAmount(targetCost);
@@ -56,6 +65,7 @@ public class Resurrect implements CommandExecutor {
 
                                     /* remove target entry from db */
                                     collection.deleteOne(found);
+
                                 } else {
                                     player.sendMessage("You need " + targetCost + " diamonds to resurrect " + target.getName() + ".");
                                 }
