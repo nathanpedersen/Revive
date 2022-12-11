@@ -1,10 +1,10 @@
 package me.perjergersen.revive.Utilities;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+
+import java.util.Objects;
 
 public class HelperFunctions {
 
@@ -21,9 +21,9 @@ public class HelperFunctions {
         }
         else {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "execute in minecraft:overworld run teleport " + player.getName() + " "
-                    + Bukkit.getWorld("HardcoreServer").getSpawnLocation().getX() + " "
-                    + Bukkit.getWorld("HardcoreServer").getSpawnLocation().getY() + " "
-                    + Bukkit.getWorld("HardcoreServer").getSpawnLocation().getZ());
+                    + Objects.requireNonNull(Bukkit.getWorld("HardcoreServer")).getSpawnLocation().getX() + " "
+                    + Objects.requireNonNull(Bukkit.getWorld("HardcoreServer")).getSpawnLocation().getY() + " "
+                    + Objects.requireNonNull(Bukkit.getWorld("HardcoreServer")).getSpawnLocation().getZ());
         }
     }
 

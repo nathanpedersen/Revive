@@ -1,38 +1,47 @@
 package me.perjergersen.revive;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.LoggerContext;
+//import ch.qos.logback.classic.Level;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import me.perjergersen.revive.Commands.Ifidie;
-import me.perjergersen.revive.Commands.Resurrect;
 import me.perjergersen.revive.Commands.Book;
+import me.perjergersen.revive.Commands.Ifidie;
 import me.perjergersen.revive.Commands.Listres;
+import me.perjergersen.revive.Commands.Resurrect;
 import org.bson.Document;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.LoggerFactory;
 
-import static me.perjergersen.revive.Utilities.HelperFunctions.*;
+import java.util.Objects;
+import java.util.logging.Logger;
+import java.util.logging.*;
+
+import static me.perjergersen.revive.Utilities.HelperFunctions.calcDiamondCost;
+import static me.perjergersen.revive.Utilities.HelperFunctions.giveBook;
 import static me.perjergersen.revive.Utilities.Mongo.mongoClient;
 
 public final class Revive extends JavaPlugin implements Listener {
-
     @Override
     public void onEnable() {
         /* Plugin startup logic */
         getServer().getPluginManager().registerEvents(this, this);
-        getCommand("resurrect").setExecutor(new Resurrect());
-        getCommand("ifidie").setExecutor(new Ifidie());
-        getCommand("listres").setExecutor(new Listres());
-        getCommand("Book").setExecutor(new Book());
-        ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
+        Objects.requireNonNull(getCommand("resurrect")).setExecutor(new Resurrect());
+        Objects.requireNonNull(getCommand("ifidie")).setExecutor(new Ifidie());
+        Objects.requireNonNull(getCommand("listres")).setExecutor(new Listres());
+        Objects.requireNonNull(getCommand("Book")).setExecutor(new Book());
+        //((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR);
+        System.setProperty("DEBUG.MONGO", "true");
+        System.setProperty("DB.TRACE", "true");
+        Logger mongoLogger = Logger.getLogger( "org.mongodb.driver" );
+        mongoLogger.setLevel(Level.SEVERE);
     }
 
     @Override
